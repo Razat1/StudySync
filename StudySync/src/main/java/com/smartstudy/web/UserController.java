@@ -1,39 +1,51 @@
 package com.smartstudy.web;
 
 import com.smartstudy.entity.User;
-import com.smartstudy.repository.UserRepository; // Corrected import
 import com.smartstudy.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-@RestController
-@RequestMapping("/users")
-public class UserController { // Corrected class name
-    @Autowired
-    private UserRepository userRepository; // Corrected variable name
+@Controller
+public class UserController {
 
-    @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return userRepository.findById(id).orElse(null);
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/")
-    public String home() {
-        return "Welcome to SmartStudy!";
+    @GetMapping("/register")
+    public String getRegisterPage(Model model) {
+        model.addAttribute("registerRequest", new User());
+        return "Registration";
     }
 
-    @Autowired
-    private UserService userService;
+    @GetMapping("/login")
+    public String getLoginPage(Model model) {
+        model.addAttribute("loginRequest", new User());
+        return "login";
+    }
 
-    @GetMapping("/{username}") // Changed path variable name to {username}
-    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
-        User user = userService.getUserByUsername(username);
-        if (user != null) {
-            return ResponseEntity.ok(user);
+    @PostMapping("/register")
+    public String register(@ModelAttribute User user) {
+        System.out.println("register request: " + user);
+        User registeredUser = userService.register(user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getEmail());
+        return registeredUser == null ? "error" : "redirect:/login";
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute User user, Model model) {
+        System.out.println("login request: " + user);
+        User authenticated = userService.authenticate(user.getUsername(), user.getPassword());
+        if (authenticated != null) {
+            model.addAttribute("userLogin", authenticated.getFirstName());
+            return "personal";
         } else {
-            return ResponseEntity.notFound().build();
+            return "error";
         }
     }
+
 }

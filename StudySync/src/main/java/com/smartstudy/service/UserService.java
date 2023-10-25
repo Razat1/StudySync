@@ -2,31 +2,34 @@ package com.smartstudy.service;
 
 import com.smartstudy.entity.User;
 import com.smartstudy.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-//    @Autowired
-//    private UserRepository userRepository;
-//
-//    public User getUserByUsername(String username) {
-//        return userRepository.findByUsername(username);
-//    }
-//}
-//@Service
-
-    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
-
-    @Autowired
-    private UserRepository userRepository;
-
-    public User getUserByUsername(String username) {
-        logger.info("Checking the database connection.");
-        User user = userRepository.findByUsername(username);
-        return user;
+    private final UserRepository userRepository;
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
+    public User register(String username, String password, String firstname, String lastname, String email) {
+        if (username == null || password == null) {
+            return null;
+        } else {
+            if(userRepository.findByUsername(username).isPresent()){
+                System.out.println("Duplicated username");
+            }
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setFirstName(firstname);
+            user.setLastName(lastname);
+            user.setEmail(email);
+            return userRepository.save(user);
+        }
+    }
+    public User authenticate (String username, String password){
+        return userRepository.findByUsernameAndPassword(username, password).orElse(null);
     }
 }
+
+
 
