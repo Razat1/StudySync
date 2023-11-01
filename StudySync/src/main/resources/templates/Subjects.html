@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Subjects Selection</title>
+</head>
+<body>
+<h1>Subjects Selection</h1>
+
+<form action="/associate-subject" method="POST">
+    <label for="subjectDropdown">Select a Subject:</label>
+    <select id="subjectDropdown" name="selectedSubject">
+        <option value="">-- Select a Subject --</option>
+        <!-- Use Thymeleaf to iterate through available subjects and populate the dropdown -->
+        <th:block th:each="subject : ${subjects}">
+            <option th:value="${subject.subjectId}" th:text="${subject.subjectName}"></option>
+        </th:block>
+    </select>
+    <button type="submit">Add Subject</button>
+</form>
+
+<!-- JavaScript to handle form submission -->
+<script>
+    // Your JavaScript for form submission can go here
+</script>
+</body>
+</html>

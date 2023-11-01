@@ -2,40 +2,25 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
-    <title>Personal</title>
-    <link rel="stylesheet" href="/css/Personal.css">
+    <title>Personal Account</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-<nav class="navbar navbar-expand-custom navbar-mainbg">
-    <a class="navbar-brand navbar-logo" href="/index.html">Welcome <span th:text="${userLogin}"></span></a>
-    <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars text-white"></i>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-            <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0);"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="javascript:void(0);"><i class="far fa-address-book"></i>Subjects</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0);"><i class="far fa-clone"></i>Progress</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0);"><i class="far fa-calendar-alt"></i>AI</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0);"><i class="far fa-chart-bar"></i>Support</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0);"><i class="far fa-copy"></i>Documents</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/Personal.js"></script>
-</body>
-</html>
+<div class="form">
+    <form method="post" action="/personal">
+        <h2>Welcome <span th:text = "${userLogin}"></span></h2>
+        <div class="navbar">
+            <nav>
+                <div class="input-box">
+                    <a th:href="@{/Dashboard}">Dashboard</a>
+                </div>
+            <div class="input-box">
+                <a th:href="@{/subjects}">Subjects</a>
+        </div>
+        <div class="input-box">
+            <a th:href="@{/Progress}">Progress</a>
+        </div>
+            </nav>
+        <a href="/logout">Logout</a>
+        </div>
+    </form>
+</div>

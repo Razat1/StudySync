@@ -29,6 +29,12 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/personal")
+    public String getPersonalPage(Model model, User user){
+        model.addAttribute("userLogin", user.getFirstName());
+        return "personal";
+    }
+
     @PostMapping("/register")
     public String register(@ModelAttribute User user) {
         System.out.println("register request: " + user);
@@ -41,11 +47,12 @@ public class UserController {
         System.out.println("login request: " + user);
         User authenticated = userService.authenticate(user.getUsername(), user.getPassword());
         if (authenticated != null) {
-            model.addAttribute("userLogin", authenticated.getFirstName());
-            return "personal";
+
+            return "redirect:/personal"; // Redirect to the "personal" page
         } else {
             return "error";
         }
     }
 
 }
+

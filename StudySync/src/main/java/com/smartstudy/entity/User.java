@@ -9,7 +9,8 @@ import java.util.Objects;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "users_id")
+    private Long users_id;
 
     @Column(name = "Username")
     private String username;
@@ -17,21 +18,21 @@ public class User {
     @Column(name = "Password")
     private String password;
 
-    @Column(name = "FirstName")
+    @Column(name = "first_name")
     private String FirstName;
 
-    @Column(name = "LastName")
+    @Column(name = "last_name")
     private String LastName;
 
     @Column(name = "Email")
     private String email;
 
     public Long getId() {
-        return id;
+        return users_id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.users_id = id;
     }
 
     public String getUsername() {
@@ -82,18 +83,18 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(FirstName, user.FirstName) && Objects.equals(LastName, user.LastName) && Objects.equals(email, user.email);
+        return Objects.equals(users_id, user.users_id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(FirstName, user.FirstName) && Objects.equals(LastName, user.LastName) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, FirstName, LastName, email);
+        return Objects.hash(users_id, username, password, FirstName, LastName, email);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + users_id +
                 ", username='" + username + '\'' +
                 ", firstName='" + FirstName + '\'' +
                 ", lastName='" + LastName + '\'' +
