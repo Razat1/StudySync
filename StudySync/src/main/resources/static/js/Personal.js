@@ -46,7 +46,7 @@ jQuery(document).ready(function($){
     var path = window.location.pathname.split("/").pop();
 
     // Account for home page with empty path
-    if ( path == '' ) {
+    if ( path === '' ) {
         path = 'index.html';
     }
 
@@ -54,3 +54,5 @@ jQuery(document).ready(function($){
     // Add active class to target link
     target.parent().addClass('active');
 });
+
+

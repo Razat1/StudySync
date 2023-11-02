@@ -5,6 +5,7 @@ body {
     background: url(https://picsum.photos/3000/2000/?image=1015);
     background-size: cover;
     background-repeat: no-repeat;
+    /*background-color: #70af71;*/
 }
 
 body::before {
@@ -14,7 +15,8 @@ body::before {
     left: 0;
     width: 25%;
     height: 100%;
-    background-color: #03a9f4;
+    background-color: beige;
+    /*background-color: #03a9f4;*/
     opacity: 0.8;
 }
 

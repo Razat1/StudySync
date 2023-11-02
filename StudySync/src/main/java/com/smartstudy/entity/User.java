@@ -2,6 +2,7 @@ package com.smartstudy.entity;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -26,6 +27,33 @@ public class User {
 
     @Column(name = "Email")
     private String email;
+
+    @Column(name = "role")
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+    @ManyToMany
+    @JoinTable(name = "User_Subjects",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id")
+    )
+    private Set<Subjects> subjects;
+
+    // Getter method for the collection of subjects
+    public Set<Subjects> getSubjects() {
+        return subjects;
+    }
+
+    // Setter method if needed
+    public void setSubjects(Set<Subjects> subjects) {
+        this.subjects = subjects;
+    }
 
     public Long getId() {
         return users_id;

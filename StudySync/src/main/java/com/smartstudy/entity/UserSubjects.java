@@ -1,12 +1,14 @@
 package com.smartstudy.entity;
 
+import com.smartstudy.config.CustomUser;
 import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
-public class UserSubjects {
+@Table(name = "User_Subjects")
 
+public class UserSubjects {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_subject_id")
@@ -19,6 +21,15 @@ public class UserSubjects {
     @ManyToOne
     @JoinColumn(name = "subject_id")
     private Subjects subject;
+
+    public UserSubjects() {
+    }
+
+//    public UserSubjects(User user, Subjects subject) {
+//        this.user = user;
+//        this.subject = subject;
+//    }
+
 
     // Constructors, getters, and setters
 
